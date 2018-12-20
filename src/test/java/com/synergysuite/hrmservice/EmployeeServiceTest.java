@@ -39,9 +39,9 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void shouldAddEmployee() throws ServiceException {
+    public void shouldAddEmployeRest() throws ServiceException {
         Employee e = new Employee(null, 1, "test2", "test2", "test@test.com", Boolean.TRUE);
-        Employee savedEmployeee = this.service.saveEmployee(e);
+        Employee savedEmployeee = this.service.saveEmployeeRest(e);
     }
 
     ////
@@ -49,48 +49,58 @@ public class EmployeeServiceTest {
     public void shouldNotAddEmployeeIfNullBranchId() throws ServiceException {
         thrown.expect(ServiceException.class);
         thrown.expectMessage("");
-        this.service.saveEmployee(new Employee(null, null, "test", "test", "email", Boolean.TRUE));
+        this.service.saveEmployeeRest(new Employee(null, null, "test", "test", "email", Boolean.TRUE));
     }
     @Test(expected = ServiceException.class)
     public void shouldNotAddEmployeeIfNullFirstName() throws ServiceException {
-        this.service.saveEmployee(new Employee(null, 1, null, "test", "email", Boolean.TRUE));
+        this.service.saveEmployeeRest(new Employee(null, 1, null, "test", "email", Boolean.TRUE));
     }
     @Test(expected = ServiceException.class)
     public void shouldNotAddEmployeeIfNullLastName() throws ServiceException {
-        this.service.saveEmployee(new Employee(null, 1, "test", null, "email", Boolean.TRUE));
+        this.service.saveEmployeeRest(new Employee(null, 1, "test", null, "email", Boolean.TRUE));
     }
     @Test(expected = ServiceException.class)
     public void shouldNotAddEmployeeIfNullEmail() throws ServiceException {
-        this.service.saveEmployee(new Employee(null, 1, "test", "test", null, Boolean.TRUE));
+        this.service.saveEmployeeRest(new Employee(null, 1, "test", "test", null, Boolean.TRUE));
     }
 
 
 
 
     @Test
-    public void shouldDeleteUserRest() throws ServiceException {
+    public void shouldDeleteEmployeeRest() throws ServiceException {
         Employee e = this.service.deleteEmployeeRest(10L);
     }
 
     ////
     @Test(expected = ServiceException.class)
-    public void shouldNotDeleteUSerRest() throws ServiceException {
+    public void shouldNotDeleteEmployeeRest() throws ServiceException {
         Employee e = this.service.deleteEmployeeRest(null);
     }
 
+
+    //if employee is deleted (active setted to false)
+    @Test
+    public void shouldRetrieveEmployeeRest() throws ServiceException {
+        Employee e = this.service.retrieveEmployeeRest(10L);
+    }
+
+    ////
+    @Test(expected = ServiceException.class)
+    public void shouldNotRetrieveEmployeeRest() throws ServiceException {
+        Employee e = this.service.retrieveEmployeeRest(null);
+    }
 
     @Test
     public void shouldUpdateRest() throws ServiceException {
         Employee e = this.service.updateEmployeeRest(10L, "anton","djokaj","anton@gmail.com");
     }
 
-    /////////////////
+    ////
     @Test(expected = ServiceException.class)
     public void shouldNotUpdateNullIdRest() throws ServiceException {
         Employee e = this.service.updateEmployeeRest(null, "anton","djokaj","anton@gmail.com");
-
     }
-
     @Test(expected = ServiceException.class)
     public void shouldNotUpdateNullFirstNameRest() throws ServiceException {
         Employee e = this.service.updateEmployeeRest(11L, null, "djokaj","anton@gmail.com");
@@ -99,7 +109,6 @@ public class EmployeeServiceTest {
     public void shouldNotUpdateNullLastNameRest() throws ServiceException {
         Employee e = this.service.updateEmployeeRest(11L, "anton", null,"anton@gmail.com");
     }
-
     @Test(expected = ServiceException.class)
     public void shouldNotUpdateNullEmailRest() throws ServiceException {
         Employee e = this.service.updateEmployeeRest(11L, "anton", "djokaj",null);

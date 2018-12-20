@@ -6,17 +6,14 @@ import com.synergysuite.hrmservice.service.exceptions.ServiceException;
 
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Service
 @RestController
@@ -34,35 +31,36 @@ public class EmployeeService {
     }
 
     @Transactional
-    public Employee saveEmployee(Employee e) throws ServiceException {
+    public Employee saveEmployeeRest(@RequestBody Employee e) throws ServiceException {
         validateEmployee(e);
         if (e.getId() == null) {
             this.entityManager.persist(e);
             return e;
-        } else {
-            return this.entityManager.merge(e);
         }
+        throw new ServiceException("Employees email or id exists already");
     }
 
 
+//////////////////////
     @Transactional
-    public Employee deleteEmployee(Long id) throws ServiceException {
-        if (id == null)
+//    @GetMapping("/employee/retrieve/{id}")
+    public Employee retrieveEmployeeRest(@PathVariable Long id) throws ServiceException {
+        if (id == null) {
             throw new ServiceException("Id supplied is null.");
+        }
         Employee employee = null;
         try {
             employee = this.entityManager.createNamedQuery(Employee.GET_BY_ID, Employee.class).setParameter(1, id).setMaxResults(1).getSingleResult();
-            employee.setActive(false);
+            employee.setActive(true);
             return this.entityManager.merge(employee);
-        } catch (NoResultException e) {
-            throw new ServiceException("Employee with " + id + " does not exist");
+        } catch (NoResultException ex) {
+            throw new ServiceException("Employee with " + id + " does not exist!");
         }
     }
 
 
-    //REST
     @Transactional
-    @GetMapping("/employee/delete/{id}")
+//    @GetMapping("/employee/delete/{id}")
     public Employee deleteEmployeeRest(@PathVariable Long id) throws ServiceException {
         if (id == null) {
             throw new ServiceException("Id supplied is null.");
@@ -72,14 +70,15 @@ public class EmployeeService {
             employee = this.entityManager.createNamedQuery(Employee.GET_BY_ID, Employee.class).setParameter(1, id).setMaxResults(1).getSingleResult();
             employee.setActive(false);
             return this.entityManager.merge(employee);
-        }catch( NoResultException ex){
+        } catch (NoResultException ex) {
             throw new ServiceException("Employee with " + id + " does not exist!");
         }
     }
 
+    //REST
     @Transactional
-    @GetMapping("/employee/update/{id}/{firstName}/{lastName}/{email}")
-    public Employee updateEmployeeRest(@PathVariable Long id, @PathVariable String firstName, @PathVariable  String lastName, @PathVariable String email) throws ServiceException {
+//    @GetMapping("/employee/update/{id}/{firstName}/{lastName}/{email}")
+    public Employee updateEmployeeRest(Long id, String firstName, String lastName, String email) throws ServiceException {
         Employee e = getEmployeeById(id);
         e.setFirstName(firstName);
         e.setLastName(lastName);
@@ -96,14 +95,15 @@ public class EmployeeService {
     }
 
     public Employee getEmployeeById(Long id) throws ServiceException {
-        if(id == null){
+        if (id == null) {
             throw new ServiceException("Id supplied is null.");
         }
 
         Employee e = entityManager.find(Employee.class, id);
-            if(e==null){
-                throw new ServiceException("Employee with id: " + id +" doesn't exist");
-            }
+        if (e == null) {
+            throw new ServiceException("Employee with id: " + id + " doesn't exist");
+        }
         return e;
     }
+
 }

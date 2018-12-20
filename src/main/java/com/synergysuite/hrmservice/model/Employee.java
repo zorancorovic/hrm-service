@@ -10,13 +10,15 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         @NamedQuery(name = Employee.GET_ALL, query = "Select e from Employee e"),
-        @NamedQuery(name = Employee.GET_BY_ID, query = "Select e from Employee e where e.id = ?1")
+        @NamedQuery(name = Employee.GET_BY_ID, query = "Select e from Employee e where e.id = ?1"),
+        @NamedQuery(name = Employee.GET_BY_EMAIL, query = "Select e from Employee e where e.email = ?3")
 })
 
 public class  Employee {
 
     public static final String GET_ALL = "Employee.getAll";
     public static final String GET_BY_ID= "Employee.getById";
+    public static final String GET_BY_EMAIL= "Employee.getByEmail";
 
     //Query
 
@@ -34,7 +36,7 @@ public class  Employee {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email" )
     private String email;
 
     @Column(name = "active")
