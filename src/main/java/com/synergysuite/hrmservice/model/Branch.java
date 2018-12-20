@@ -18,7 +18,9 @@ public class Branch {
     private Long id;
     private String address;
     private String city;
+    @Column(name = "email", unique = true)
     private String email;
+    @Column(name = "name", unique = true)
     private String name;
     private String password;
     private boolean active;

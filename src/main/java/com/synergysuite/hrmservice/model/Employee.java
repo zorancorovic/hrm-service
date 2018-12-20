@@ -1,9 +1,10 @@
 package com.synergysuite.hrmservice.model;
 
-import javax.annotation.Generated;
+import net.bytebuddy.build.Plugin;
+import org.springframework.context.annotation.Primary;
+
+import javax.annotation.Priority;
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -11,17 +12,20 @@ import java.util.Objects;
         @NamedQuery(name = Employee.GET_ALL, query = "Select e from Employee e"),
         @NamedQuery(name = Employee.GET_BY_ID, query = "Select e from Employee e where e.id = ?1")
 })
+
 public class  Employee {
 
     public static final String GET_ALL = "Employee.getAll";
     public static final String GET_BY_ID= "Employee.getById";
+
+    //Query
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "fk_branch_id")
+    @Column(name = "fk_branch_id" )
     private Integer fk_branch_id;
 
     @Column(name = "name")
@@ -40,6 +44,7 @@ public class  Employee {
     public Employee() {
     }
 
+
     public Employee(Long id, Integer fk_branch_id, String firstName, String lastName, String email, Boolean active) {
         this.id = id;
         this.fk_branch_id = fk_branch_id;
@@ -49,6 +54,7 @@ public class  Employee {
         this.active = active;
 
     }
+
 
     public Long getId() {
         return id;

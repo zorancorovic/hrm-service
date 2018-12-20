@@ -6,3 +6,4 @@ INSERT INTO `branches` (`id`, `address`, `city`, `email`, `name`, `password`, `a
 INSERT INTO `branches` (`id`, `address`, `city`, `email`, `name`, `password`, `active`) VALUES (23, 'TestAdresa1', 'TestGrad1', 'TestEmail1', 'TestName1', 'TestPaswword1', '0');
 INSERT INTO `branches` (`id`, `address`, `city`, `email`, `name`, `password`, `active`) VALUES (3, 'TestAdresa2', 'TestGrad2', 'TestEmail2', 'TestName2', 'TestPaswword2', '1');
 INSERT INTO `branches` (`id`, `address`, `city`, `email`, `name`, `password`, `active`) VALUES (4, 'TestAdresa3', 'TestGrad3', 'TestEmail3', 'TestName3', 'TestPaswword3', '1');
+
