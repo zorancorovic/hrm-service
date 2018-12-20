@@ -37,8 +37,8 @@ public class EmployeeServiceTest {
     @Test
     public void shouldAddEmployee() throws ServiceException {
         System.out.println("2");
-        Employee e = new Employee(null, 1, "test2", "test2", "test@test.com", 1);
-        Employee e1 = new Employee(null, 1, "test2", "test2", "test@test.com", 0);
+        Employee e = new Employee(null, 1, "test2", "test2", "test@test.com", Boolean.TRUE);
+        Employee e1 = new Employee(null, 1, "test2", "test2", "test@test.com", Boolean.FALSE);
         Employee savedEmployee = this.service.saveEmployee(e);
         Employee savedEmployeee = this.service.saveEmployee(e1);
     }
@@ -46,13 +46,13 @@ public class EmployeeServiceTest {
     @Test(expected = ServiceException.class)
     public void shouldNotAddEmployeeIfNullFirstLastName() throws ServiceException {
         System.out.println("3");
-        this.service.saveEmployee(new Employee(null, 1, "test", null, "email", 1));
+        this.service.saveEmployee(new Employee(null, 1, "test", null, "email", Boolean.TRUE));
     }
 
     @Test
     public void shouldDeleteUser() throws ServiceException {
         System.out.println("4");
-        Employee e = this.service.deleteEmployee(10);
+        Employee e = this.service.deleteEmployee(10L);
         System.out.println("Nesto");
     }
 
@@ -66,7 +66,7 @@ public class EmployeeServiceTest {
     @Test
     public void shouldDeleteUserRest() throws ServiceException {
         System.out.println("6");
-        Employee e = this.service.deleteEmployeeRest(10);
+        Employee e = this.service.deleteEmployeeRest(10L);
     }
 
     @Test(expected = ServiceException.class)
