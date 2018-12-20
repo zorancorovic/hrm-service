@@ -22,7 +22,6 @@ public class EmployeeService {
     @Autowired
     private EmployeeJPARepository employeeJPARepository;
 
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -65,6 +64,7 @@ public class EmployeeService {
         if (id == null) {
             throw new ServiceException("Id supplied is null.");
         }
+
         Employee employee = null;
         try {
             employee = this.entityManager.createNamedQuery(Employee.GET_BY_ID, Employee.class).setParameter(1, id).setMaxResults(1).getSingleResult();
@@ -85,9 +85,7 @@ public class EmployeeService {
         e.setEmail(email);
         validateEmployee(e);
         return this.entityManager.merge(e);
-
     }
-
 
     private void validateEmployee(Employee e) throws ServiceException {
         if (e == null || e.getFk_branch_id() == null || e.getFirstName() == null || e.getLastName() == null || e.getEmail() == null)
