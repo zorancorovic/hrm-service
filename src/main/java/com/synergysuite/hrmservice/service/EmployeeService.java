@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 @RestController
 public class EmployeeService {
-date
+
     @Autowired
     private EmployeeJPARepository employeeJPARepository;
 
@@ -58,7 +58,6 @@ date
 
         throw new ServiceException("User : (" + e.toString() + ") doesn't exist!");
     }
-
 
 
     @Transactional

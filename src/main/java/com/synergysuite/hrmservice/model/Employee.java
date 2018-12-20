@@ -9,6 +9,7 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         @NamedQuery(name = Employee.GET_ALL, query = "Select e from Employee e")
+
 })
 public class  Employee {
 
