@@ -5,7 +5,9 @@ import com.synergysuite.hrmservice.service.EmployeeService;
 import com.synergysuite.hrmservice.service.exceptions.ServiceException;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.Is;
+
 import static org.hamcrest.Matchers.*;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +27,51 @@ public class EmployeeServiceTest {
     private EmployeeService service;
 
     @Test
-    public void shouldListEmployees(){
+    public void shouldListEmployees() {
+        System.out.println("1");
         List<Employee> allEmployees = this.service.getAllEmployees();
         assertThat(allEmployees, is(not(empty())));
+
     }
 
     @Test
     public void shouldAddEmployee() throws ServiceException {
-        Employee e = new Employee(null, "test2", "test2");
+        System.out.println("2");
+        Employee e = new Employee(null, 1, "test2", "test2", "test@test.com", 1);
+        Employee e1 = new Employee(null, 1, "test2", "test2", "test@test.com", 0);
         Employee savedEmployee = this.service.saveEmployee(e);
+        Employee savedEmployeee = this.service.saveEmployee(e1);
     }
 
     @Test(expected = ServiceException.class)
     public void shouldNotAddEmployeeIfNullFirstLastName() throws ServiceException {
-        this.service.saveEmployee(new Employee(null, null, "test"));
+        System.out.println("3");
+        this.service.saveEmployee(new Employee(null, 1, "test", null, "email", 1));
     }
 
+    @Test
+    public void shouldDeleteUser() throws ServiceException {
+        System.out.println("4");
+        Employee e = this.service.deleteEmployee(10);
+        System.out.println("Nesto");
+    }
+
+    @Test(expected = ServiceException.class)
+    public void shouldNotDeleteUser() throws ServiceException {
+        System.out.println("5");
+        Employee e = this.service.deleteEmployee(null);
+    }
+
+
+    @Test
+    public void shouldDeleteUserRest() throws ServiceException {
+        System.out.println("6");
+        Employee e = this.service.deleteEmployeeRest(10);
+    }
+
+    @Test(expected = ServiceException.class)
+    public void shouldNotDeleteUSerRest() throws ServiceException {
+        System.out.println("7");
+        Employee e = this.service.deleteEmployeeRest(null);
+    }
 }

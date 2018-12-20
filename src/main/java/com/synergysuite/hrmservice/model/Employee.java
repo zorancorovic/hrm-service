@@ -2,39 +2,57 @@ package com.synergysuite.hrmservice.model;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name=Employee.GET_ALL, query = "Select e from Employee e")
+        @NamedQuery(name = Employee.GET_ALL, query = "Select e from Employee e")
 })
-public class Employee {
+public class  Employee {
 
     public static final String GET_ALL = "Employee.getAll";
 
     @Id
-    @Column
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column
+    private Integer id;
+
+    @Column(name = "fk_branch_id")
+    private Integer fk_branch_id;
+
+    @Column(name = "name")
     private String firstName;
-    @Column
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "active")
+    private Integer active;
+
 
     public Employee() {
     }
 
-    public Employee(Long id, String firstName, String lastName) {
+    public Employee(Integer id, Integer fk_branch_id, String firstName, String lastName, String email, Integer active) {
         this.id = id;
+        this.fk_branch_id = fk_branch_id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.active = active;
+
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -54,6 +72,30 @@ public class Employee {
         this.lastName = lastName;
     }
 
+    public Integer getFk_branch_id() {
+        return fk_branch_id;
+    }
+
+    public void setFk_branch_id(Integer fk_branch_id) {
+        this.fk_branch_id = fk_branch_id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,5 +107,17 @@ public class Employee {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", fk_branch_id=" + fk_branch_id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", active=" + active +
+                '}';
     }
 }
