@@ -1,12 +1,10 @@
 package com.synergysuite.hrmservice.model;
 
-import com.synergysuite.hrmservice.service.EmployeeService;
-import jdk.jfr.Name;
+import net.bytebuddy.build.Plugin;
+import org.springframework.context.annotation.Primary;
 
-import javax.annotation.Generated;
+import javax.annotation.Priority;
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -27,7 +25,7 @@ public class  Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "fk_branch_id")
+    @Column(name = "fk_branch_id" )
     private Integer fk_branch_id;
 
     @Column(name = "name")
@@ -46,6 +44,7 @@ public class  Employee {
     public Employee() {
     }
 
+
     public Employee(Long id, Integer fk_branch_id, String firstName, String lastName, String email, Boolean active) {
         this.id = id;
         this.fk_branch_id = fk_branch_id;
@@ -55,6 +54,7 @@ public class  Employee {
         this.active = active;
 
     }
+
 
     public Long getId() {
         return id;

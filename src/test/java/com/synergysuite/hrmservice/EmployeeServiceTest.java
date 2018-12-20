@@ -8,7 +8,9 @@ import org.hamcrest.core.Is;
 
 import static org.hamcrest.Matchers.*;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,12 +25,14 @@ import static org.hamcrest.core.Is.is;
 @SpringBootTest
 public class EmployeeServiceTest {
 
+    @Rule
+    public ExpectedException thrown =  ExpectedException.none();
+
     @Autowired
     private EmployeeService service;
 
     @Test
     public void shouldListEmployees() {
-        System.out.println("1");
         List<Employee> allEmployees = this.service.getAllEmployees();
         assertThat(allEmployees, is(not(empty())));
 
@@ -36,42 +40,71 @@ public class EmployeeServiceTest {
 
     @Test
     public void shouldAddEmployee() throws ServiceException {
-        System.out.println("2");
         Employee e = new Employee(null, 1, "test2", "test2", "test@test.com", Boolean.TRUE);
-        Employee e1 = new Employee(null, 1, "test2", "test2", "test@test.com", Boolean.FALSE);
-        Employee savedEmployee = this.service.saveEmployee(e);
-        Employee savedEmployeee = this.service.saveEmployee(e1);
+        Employee savedEmployeee = this.service.saveEmployee(e);
     }
 
+    ////
+    @Test
+    public void shouldNotAddEmployeeIfNullBranchId() throws ServiceException {
+        thrown.expect(ServiceException.class);
+        thrown.expectMessage("");
+        this.service.saveEmployee(new Employee(null, null, "test", "test", "email", Boolean.TRUE));
+    }
     @Test(expected = ServiceException.class)
-    public void shouldNotAddEmployeeIfNullFirstLastName() throws ServiceException {
-        System.out.println("3");
+    public void shouldNotAddEmployeeIfNullFirstName() throws ServiceException {
+        this.service.saveEmployee(new Employee(null, 1, null, "test", "email", Boolean.TRUE));
+    }
+    @Test(expected = ServiceException.class)
+    public void shouldNotAddEmployeeIfNullLastName() throws ServiceException {
         this.service.saveEmployee(new Employee(null, 1, "test", null, "email", Boolean.TRUE));
     }
-
-    @Test
-    public void shouldDeleteUser() throws ServiceException {
-        System.out.println("4");
-        Employee e = this.service.deleteEmployee(10L);
-        System.out.println("Nesto");
-    }
-
     @Test(expected = ServiceException.class)
-    public void shouldNotDeleteUser() throws ServiceException {
-        System.out.println("5");
-        Employee e = this.service.deleteEmployee(null);
+    public void shouldNotAddEmployeeIfNullEmail() throws ServiceException {
+        this.service.saveEmployee(new Employee(null, 1, "test", "test", null, Boolean.TRUE));
     }
+
+
 
 
     @Test
     public void shouldDeleteUserRest() throws ServiceException {
-        System.out.println("6");
         Employee e = this.service.deleteEmployeeRest(10L);
     }
 
+    ////
     @Test(expected = ServiceException.class)
     public void shouldNotDeleteUSerRest() throws ServiceException {
-        System.out.println("7");
         Employee e = this.service.deleteEmployeeRest(null);
     }
+
+
+    @Test
+    public void shouldUpdateRest() throws ServiceException {
+        Employee e = this.service.updateEmployeeRest(10L, "anton","djokaj","anton@gmail.com");
+    }
+
+    /////////////////
+    @Test(expected = ServiceException.class)
+    public void shouldNotUpdateNullIdRest() throws ServiceException {
+        Employee e = this.service.updateEmployeeRest(null, "anton","djokaj","anton@gmail.com");
+
+    }
+
+    @Test(expected = ServiceException.class)
+    public void shouldNotUpdateNullFirstNameRest() throws ServiceException {
+        Employee e = this.service.updateEmployeeRest(11L, null, "djokaj","anton@gmail.com");
+    }
+    @Test(expected = ServiceException.class)
+    public void shouldNotUpdateNullLastNameRest() throws ServiceException {
+        Employee e = this.service.updateEmployeeRest(11L, "anton", null,"anton@gmail.com");
+    }
+
+    @Test(expected = ServiceException.class)
+    public void shouldNotUpdateNullEmailRest() throws ServiceException {
+        Employee e = this.service.updateEmployeeRest(11L, "anton", "djokaj",null);
+    }
+
+
+
 }
