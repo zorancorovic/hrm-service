@@ -1,5 +1,8 @@
 package com.synergysuite.hrmservice.model;
 
+import com.synergysuite.hrmservice.service.EmployeeService;
+import jdk.jfr.Name;
+
 import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -10,9 +13,12 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = Employee.GET_ALL, query = "Select e from Employee e")
 })
+
 public class  Employee {
 
     public static final String GET_ALL = "Employee.getAll";
+
+    //Query
 
     @Id
     @Column(name = "id")
@@ -103,6 +109,7 @@ public class  Employee {
         Employee employee = (Employee) o;
         return Objects.equals(id, employee.id);
     }
+
 
     @Override
     public int hashCode() {
