@@ -8,16 +8,18 @@ import java.util.Objects;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = Employee.GET_ALL, query = "Select e from Employee e")
+        @NamedQuery(name = Employee.GET_ALL, query = "Select e from Employee e"),
+        @NamedQuery(name = Employee.GET_BY_ID, query = "Select e from Employee e where e.id = ?1")
 })
 public class  Employee {
 
     public static final String GET_ALL = "Employee.getAll";
+    public static final String GET_BY_ID= "Employee.getById";
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(name = "fk_branch_id")
     private Integer fk_branch_id;
@@ -32,13 +34,13 @@ public class  Employee {
     private String email;
 
     @Column(name = "active")
-    private Integer active;
+    private Boolean active;
 
 
     public Employee() {
     }
 
-    public Employee(Integer id, Integer fk_branch_id, String firstName, String lastName, String email, Integer active) {
+    public Employee(Long id, Integer fk_branch_id, String firstName, String lastName, String email, Boolean active) {
         this.id = id;
         this.fk_branch_id = fk_branch_id;
         this.firstName = firstName;
@@ -48,11 +50,11 @@ public class  Employee {
 
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -88,11 +90,11 @@ public class  Employee {
         this.email = email;
     }
 
-    public Integer getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(Integer active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
