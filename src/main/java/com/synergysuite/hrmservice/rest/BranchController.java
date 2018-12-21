@@ -45,10 +45,10 @@ public class BranchController {
         }
     }
 
-    @PutMapping("/{address}/{city}/{email}/{name}/{password}/{active}")
-    public ResponseEntity updateBranch(@PathVariable("address") String address, @PathVariable("city") String city, @PathVariable("email") String email, @PathVariable("name") String name, @PathVariable("password") String password, @PathVariable("active") boolean active) {
+    @PutMapping("/{id}/{address}/{city}/{email}/{name}/{password}/{active}")
+    public ResponseEntity updateBranch(@PathVariable("id") Long id, @PathVariable("address") String address, @PathVariable("city") String city, @PathVariable("email") String email, @PathVariable("name") String name, @PathVariable("password") String password, @PathVariable("active") boolean active) {
         try {
-            return ResponseEntity.ok(this.branchservice.updateBranch(address, city, email, name, password, active));
+            return ResponseEntity.ok(this.branchservice.updateBranch(id,address, city, email, name, password, active));
         } catch (ServiceException e) {
             return e.toResponse();
         }

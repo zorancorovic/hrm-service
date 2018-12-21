@@ -6,4 +6,8 @@ INSERT INTO `branches` (`id`, `address`, `city`, `email`, `name`, `password`, `a
 INSERT INTO `branches` (`id`, `address`, `city`, `email`, `name`, `password`, `active`) VALUES (10000000002, 'TestAdresa1', 'TestGrad1', 'TestEmail1', 'TestName1', 'TestPaswword1', '0');
 INSERT INTO `branches` (`id`, `address`, `city`, `email`, `name`, `password`, `active`) VALUES (10000000003, 'TestAdresa2', 'TestGrad2', 'TestEmail2', 'TestName2', 'TestPaswword2', '1');
 INSERT INTO `branches` (`id`, `address`, `city`, `email`, `name`, `password`, `active`) VALUES (10000000004, 'TestAdresa3', 'TestGrad3', 'TestEmail3', 'TestName3', 'TestPaswword3', '1');
-
+INSERT INTO `managers` (`id`, `name`, `last_name`, `email`, `password`, `fk_branch_id`, `active`) VALUES (10000000001, 'TestName', 'TestLastName', 'TestEmail', 'TestPaswword', '3', '1');
+INSERT INTO `managers` (`id`, `name`, `last_name`, `email`, `password`, `fk_branch_id`, `active`) VALUES (10000000002, 'TestName1', 'TestLastName1', 'TestEmail1', 'TestPaswword1', '3', '1');
+INSERT INTO `managers` (`id`, `name`, `last_name`, `email`, `password`, `fk_branch_id`, `active`) VALUES (10000000003, 'TestName2', 'TestLastName2', 'TestEmail2', 'TestPaswword2', '2', '1');
+INSERT INTO `managers` (`id`, `name`, `last_name`, `email`, `password`, `fk_branch_id`, `active`) VALUES (10000000004, 'TestName3', 'TestLastName3', 'TestEmail3', 'TestPaswword3', '1', '0');
+INSERT INTO `managers` (`id`, `name`, `last_name`, `email`, `password`, `fk_branch_id`, `active`) VALUES (10000000005, 'TestName4', 'TestLastName4', 'TestEmail4', 'TestPaswword4', '1', '1');

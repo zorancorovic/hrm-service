@@ -31,100 +31,103 @@ public class BranchServiceTest {
 
     @Test
     public void shouldListBranches() throws ServiceException {
-        System.out.println("1");
         List<Branch> branches = this.service.getAllBranches();
         assertThat(branches, Is.is(Matchers.not(Matchers.empty())));
     }
 
     @Test
     public void shouldDeleteBranches() throws ServiceException {
-        System.out.println("2");
         Branch b = service.deleteBranch(10000000001L);
     }
 
     @Test(expected = ServiceException.class)
     public void shouldNotDeleteBranches() throws ServiceException {
-        System.out.println("3");
         Branch b = service.deleteBranch(1000220001L);
     }
 
     @Test
-    public void ShouldReturnBranchById() throws ServiceException {
-        System.out.println("4");
+    public void shouldReturnBranchById() throws ServiceException {
         Branch b = service.getBranchById(10000000001L);
     }
 
     @Test(expected = NoResultException.class)
-    public void ShouldNotReturnBranchById() throws ServiceException {
-        System.out.println("5");
+    public void shouldNotReturnBranchById() throws ServiceException {
         Branch b = service.getBranchById(1000000001L);
     }
 
+    @Test(expected = ServiceException.class)
+    public void shouldNotReturnBranchById2() throws ServiceException {
+        Branch b = service.getBranchById(null);
+    }
+
     @Test
-    public void ShouldValidateBranch() throws ServiceException {
-        System.out.println("6");
+    public void shouldValidateBranch() throws ServiceException {
         Branch b = service.getBranchById(10000000001L);
         b.setEmail("test@.mail.unique");
         service.validateBrandh(b);
     }
 
     @Test(expected = ServiceException.class)
-    public void ShouldNotValidateBranch() throws ServiceException {
-        System.out.println("7");
+    public void shouldNotValidateBranch() throws ServiceException {
         service.validateBrandh(service.getBranchById(10000000001L));
     }
 
     @Test(expected = ServiceException.class)
-    public void ShouldNotValidate() throws ServiceException {
-        System.out.println("8");
+    public void shouldNotValidate() throws ServiceException {
         Branch b = service.getBranchById(10000000001L);
         b.setEmail(null);
         service.validateBrandh(b);
     }
 
     @Test(expected = ServiceException.class)
-    public void ShouldNotValidate2() throws ServiceException {
-        System.out.println("9");
+    public void shouldNotValidate2() throws ServiceException {
         Branch b = service.getBranchById(10000000001L);
         b.setName(null);
         service.validateBrandh(b);
     }
 
     @Test(expected = ServiceException.class)
-    public void ShouldNotValidate3() throws ServiceException {
-        System.out.println("10");
+    public void shouldNotValidate3() throws ServiceException {
         Branch b = service.getBranchById(10000000001L);
         b.setAddress(null);
         service.validateBrandh(b);
     }
 
     @Test(expected = ServiceException.class)
-    public void ShouldNotValidate4() throws ServiceException {
-        System.out.println("11");
+    public void shouldNotValidate4() throws ServiceException {
         Branch b = service.getBranchById(10000000001L);
         b.setCity(null);
         service.validateBrandh(b);
     }
 
     @Test(expected = ServiceException.class)
-    public void ShouldNotValidate5() throws ServiceException {
-        System.out.println("12");
+    public void shouldNotValidate5() throws ServiceException {
         Branch b = service.getBranchById(10000000001L);
         b.setPassword(null);
         service.validateBrandh(b);
     }
 
     @Test(expected = ServiceException.class)
-    public void ShouldNotSaveBranch() throws ServiceException {
-        System.out.println("13");
+    public void shouldNotSaveBranch() throws ServiceException {
         Branch b = service.getBranchById(10000000001L);
         b.setId(null);
         service.saveBranch(b);
     }
 
+    @Test(expected = ServiceException.class)
+    public void shouldNotSaveBranch2() throws ServiceException {
+        Branch b = new Branch();
+        b.setAddress("1");
+        b.setActive(true);
+        b.setCity(null);
+        b.setEmail("1000000");
+        b.setName("1");
+        b.setPassword("1");
+        service.saveBranch(b);
+    }
+
     @Test
-    public void ShouldSaveBranch() throws ServiceException {
-        System.out.println("14");
+    public void shouldSaveBranch() throws ServiceException {
         Branch b = new Branch();
         b.setAddress("1");
         b.setActive(true);
@@ -133,5 +136,18 @@ public class BranchServiceTest {
         b.setName("1");
         b.setPassword("1");
         service.saveBranch(b);
+    }
+
+    @Test
+    public void shouldUprdateBranch() throws ServiceException{
+        service.updateBranch(10000000001L,"adr","cit","ema","name","pass",true);
+    }
+    @Test(expected = NoResultException.class)
+    public void shouldNotUprdateBranch() throws ServiceException{
+        service.updateBranch(10002320001L,"adr","cit","ema","name","pass",true);
+    }
+    @Test(expected = ServiceException.class)
+    public void shouldNotUprdateBranch2() throws ServiceException{
+        service.updateBranch(10000000001L,null,"cit","ema","name","pass",true);
     }
 }

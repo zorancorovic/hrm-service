@@ -23,7 +23,6 @@ public class BranchService {
     private EntityManager entityManager;
 
 
-    @Transactional
     public Branch getBranchById(Long id) throws ServiceException {
 
         if (id == null) {
@@ -36,7 +35,6 @@ public class BranchService {
         return b;
     }
 
-    @Transactional
     public List<Branch> getAllBranches() throws ServiceException {
         return this.entityManager.createNamedQuery(Branch.GET_ALL, Branch.class).getResultList();
     }
@@ -57,7 +55,6 @@ public class BranchService {
         }
     }
 
-    @Transactional
     public void validateBrandh(Branch b) throws ServiceException {
         if (b.getAddress() == null || b.getCity() == null || b.getEmail() == null || b.getName() == null || b.getPassword() == null) {
             throw new ServiceException("Data suplied is not valid.");
@@ -76,15 +73,21 @@ public class BranchService {
     }
 
     @Transactional
-    public Branch updateBranch(String address, String city, String email, String name, String password, boolean active) throws ServiceException {
+    public Branch updateBranch(Long id, String address, String city, String email, String name, String password, boolean active) throws ServiceException {
+
+
 
         Branch b = new Branch();
+        b.setId(id);
         b.setAddress(address);
         b.setActive(active);
         b.setCity(city);
         b.setEmail(email);
         b.setName(name);
         b.setPassword(password);
+
+        getBranchById(id);
+        validateBrandh(b);
 
         return this.entityManager.merge(b);
     }

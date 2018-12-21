@@ -64,9 +64,6 @@ public class EmployeeServiceTest {
         this.service.saveEmployeeRest(new Employee(null, 1, "test", "test", null, Boolean.TRUE));
     }
 
-
-
-
     @Test
     public void shouldDeleteEmployeeRest() throws ServiceException {
         Employee e = this.service.deleteEmployeeRest(10L);
