@@ -62,10 +62,21 @@ public class BranchService {
         if (b.getAddress() == null || b.getCity() == null || b.getEmail() == null || b.getName() == null || b.getPassword() == null) {
             throw new ServiceException("Data suplied is not valid.");
         }
+        List<Branch> branches = this.entityManager.createNamedQuery(Branch.GET_BY_MAIL, Branch.class).setParameter(1, b.getEmail()).getResultList();
+        if (!branches.isEmpty()) {
+            throw new ServiceException("This email already exist.");
+        }
     }
 
     @Transactional
-    public Branch updateBranch( String address,  String city,  String email,  String name,  String password,  boolean active) throws  ServiceException {
+    public Branch saveBranch(Branch b) throws ServiceException{
+        validateBrandh(b);
+        this.entityManager.persist(b);
+        return b;
+    }
+
+    @Transactional
+    public Branch updateBranch(String address, String city, String email, String name, String password, boolean active) throws ServiceException {
 
         Branch b = new Branch();
         b.setAddress(address);

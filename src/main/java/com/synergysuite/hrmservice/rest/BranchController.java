@@ -37,18 +37,28 @@ public class BranchController {
     }
 
     @GetMapping("/")
-    public ResponseEntity getAllBranches(){
-        try{
+    public ResponseEntity getAllBranches() {
+        try {
             return ResponseEntity.ok(this.branchservice.getAllBranches());
-        }catch (ServiceException e){
+        } catch (ServiceException e) {
             return e.toResponse();
         }
     }
 
     @PutMapping("/{address}/{city}/{email}/{name}/{password}/{active}")
-    public ResponseEntity updateEntity(@PathVariable("address") String address, @PathVariable("city") String city, @PathVariable("email") String email, @PathVariable("name") String name, @PathVariable("password") String password, @PathVariable("active") boolean active) {
+    public ResponseEntity updateBranch(@PathVariable("address") String address, @PathVariable("city") String city, @PathVariable("email") String email, @PathVariable("name") String name, @PathVariable("password") String password, @PathVariable("active") boolean active) {
         try {
             return ResponseEntity.ok(this.branchservice.updateBranch(address, city, email, name, password, active));
+        } catch (ServiceException e) {
+            return e.toResponse();
+        }
+    }
+
+    @PostMapping("/save/{address}/{city}/{email}/{name}/{password}/{active}")
+    public ResponseEntity saveBranch(@PathVariable("address") String address, @PathVariable("city") String city, @PathVariable("email") String email, @PathVariable("name") String name, @PathVariable("password") String password, @PathVariable("active") boolean active) {
+        Branch b = new Branch(address, city, email, name, password, active);
+        try {
+            return ResponseEntity.ok(this.branchservice.saveBranch(b));
         } catch (ServiceException e) {
             return e.toResponse();
         }

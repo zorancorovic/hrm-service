@@ -6,12 +6,14 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         @NamedQuery(name = Branch.GET_ALL, query ="select b from Branch b"),
-        @NamedQuery(name = Branch.GET_BY_ID, query = "select b from Branch b where id = ?1")
+        @NamedQuery(name = Branch.GET_BY_ID, query = "select b from Branch b where id = ?1"),
+        @NamedQuery(name = Branch.GET_BY_MAIL, query = "select b from Branch b where email = ?1")
 })
 @Table(name = "branches")
 public class Branch {
     public static final String GET_ALL = "Branch.getAll";
     public static final String GET_BY_ID = "Branch.getById";
+    public static final String GET_BY_MAIL = "Branch.getByMail";
 
     @Id
     @GeneratedValue
@@ -28,8 +30,19 @@ public class Branch {
     public Branch(){
         super();
 
-    }    public Branch(Long id, String address, String city, String email, String name, String password, boolean active) {
+    }
+        public Branch(Long id, String address, String city, String email, String name, String password, boolean active) {
         this.id = id;
+        this.address = address;
+        this.city = city;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.active = active;
+    }
+
+    public Branch(String address, String city, String email, String name, String password, boolean active) {
+
         this.address = address;
         this.city = city;
         this.email = email;
