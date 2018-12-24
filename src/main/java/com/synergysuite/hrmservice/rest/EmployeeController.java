@@ -23,8 +23,7 @@ public class EmployeeController {
     public ResponseEntity getAllEmployees() {
        return ResponseEntity.ok(this.service.getAllEmployees());
     }
-//
-//    @Transactional
+
     @PostMapping("/insert")
     public ResponseEntity saveEmployeeRest(@RequestBody Employee e) {
         try {
@@ -36,7 +35,6 @@ public class EmployeeController {
     }
 
 
-//    @Transactional
     @GetMapping("/delete/{id}")
     public ResponseEntity deleteEmployeeRest(@PathVariable Long id) {
         try {
@@ -46,7 +44,6 @@ public class EmployeeController {
         }
     }
 
-//    @Transactional
     @GetMapping("/retrieve/{id}")
     public ResponseEntity retrieveEmployeeRest(@PathVariable Long id) {
         try {
@@ -56,7 +53,6 @@ public class EmployeeController {
         }
     }
 
-//    @Transactional
     @GetMapping("/update/{id}/{firstName}/{lastName}/{email}")
     public ResponseEntity updateEmployeeRest(@PathVariable("id") Long id, @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("email") String email) {
         try {

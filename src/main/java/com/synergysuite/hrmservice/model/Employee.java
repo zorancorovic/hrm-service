@@ -11,9 +11,8 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = Employee.GET_ALL, query = "Select e from Employee e"),
         @NamedQuery(name = Employee.GET_BY_ID, query = "Select e from Employee e where e.id = ?1"),
-        @NamedQuery(name = Employee.GET_BY_EMAIL, query = "Select e from Employee e where e.email = ?3")
+        @NamedQuery(name = Employee.GET_BY_EMAIL, query = "Select e from Employee e where e.email = ?1")
 })
-
 public class  Employee {
 
     public static final String GET_ALL = "Employee.getAll";
@@ -41,10 +40,6 @@ public class  Employee {
 
     @Column(name = "active")
     private Boolean active;
-
-    @ManyToOne
-    @JoinColumn(name = "fk_branch_id")
-    private Branch branch;
 
     public Employee() {
     }
