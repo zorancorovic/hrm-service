@@ -1,14 +1,11 @@
 package com.synergysuite.hrmservice.service;
 
-import com.synergysuite.hrmservice.JPARepository.EmployeeJPARepository;
 import com.synergysuite.hrmservice.model.Employee;
 import com.synergysuite.hrmservice.service.exceptions.ServiceException;
 
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class EmployeeService {
 
-    @Autowired
-    private EmployeeJPARepository employeeJPARepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -40,9 +35,8 @@ public class EmployeeService {
     }
 
 
-//////////////////////
+
     @Transactional
-//    @GetMapping("/employee/retrieve/{id}")
     public Employee retrieveEmployeeRest(@PathVariable Long id) throws ServiceException {
         if (id == null) {
             throw new ServiceException("Id supplied is null.");
@@ -59,7 +53,6 @@ public class EmployeeService {
 
 
     @Transactional
-//    @GetMapping("/employee/delete/{id}")
     public Employee deleteEmployeeRest(@PathVariable Long id) throws ServiceException {
         if (id == null) {
             throw new ServiceException("Id supplied is null.");
@@ -77,7 +70,6 @@ public class EmployeeService {
 
     //REST
     @Transactional
-//    @GetMapping("/employee/update/{id}/{firstName}/{lastName}/{email}")
     public Employee updateEmployeeRest(Long id, String firstName, String lastName, String email) throws ServiceException {
         Employee e = getEmployeeById(id);
         e.setFirstName(firstName);
