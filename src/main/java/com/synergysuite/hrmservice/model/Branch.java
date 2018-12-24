@@ -22,7 +22,6 @@ public class Branch {
     private String city;
     @Column(name = "email", unique = true)
     private String email;
-    @Column(name = "name", unique = true)
     private String name;
     private String password;
     private boolean active;

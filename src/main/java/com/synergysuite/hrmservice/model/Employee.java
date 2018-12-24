@@ -42,6 +42,9 @@ public class  Employee {
     @Column(name = "active")
     private Boolean active;
 
+    @ManyToOne
+    @JoinColumn(name = "fk_branch_id")
+    private Branch branch;
 
     public Employee() {
     }

@@ -52,7 +52,9 @@ public class ManagerService {
     public Manager updateManager(Long id,Long fk_branch_id, String password, String email, String name, String lastName, boolean active ) throws ServiceException {
 
         Manager m = new Manager(id ,name, lastName, email, password,fk_branch_id,active);
-        validateManager(m);
+        if (m == null || m.getEmail() == null || m.getFk_branch_id() == null || m.getLast_name() == null || m.getName() == null || m.getPassword() == null) {
+            throw new ServiceException("Data suplied for manager are not valid.");
+        }
         getManagerbyId(id);
         return this.entityManager.merge(m);
     }

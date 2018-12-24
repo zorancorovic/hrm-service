@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.persistence.EntityManager;
 
 @Controller
-@RequestMapping(path = "/branch")
+@RequestMapping(path = "/branches")
 public class BranchController {
 
     @Autowired

@@ -11,3 +11,6 @@ INSERT INTO `managers` (`id`, `name`, `last_name`, `email`, `password`, `fk_bran
 INSERT INTO `managers` (`id`, `name`, `last_name`, `email`, `password`, `fk_branch_id`, `active`) VALUES (10000000003, 'TestName2', 'TestLastName2', 'TestEmail2', 'TestPaswword2', '2', '1');
 INSERT INTO `managers` (`id`, `name`, `last_name`, `email`, `password`, `fk_branch_id`, `active`) VALUES (10000000004, 'TestName3', 'TestLastName3', 'TestEmail3', 'TestPaswword3', '1', '0');
 INSERT INTO `managers` (`id`, `name`, `last_name`, `email`, `password`, `fk_branch_id`, `active`) VALUES (10000000005, 'TestName4', 'TestLastName4', 'TestEmail4', 'TestPaswword4', '1', '1');
+INSERT INTO `shifts` (`id`, `start`, `end`) VALUES (1000000000001, '10:00:00', '18:00:00');
+INSERT INTO `shifts` (`id`, `start`, `end`) VALUES (1000000000002, '00:50:00', '15:05:00');
+INSERT INTO `shifts` (`id`, `start`, `end`) VALUES (1000000000003, '00:10:00', '20:10:00');

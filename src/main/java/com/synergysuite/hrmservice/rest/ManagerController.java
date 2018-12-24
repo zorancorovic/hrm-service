@@ -36,7 +36,7 @@ public class ManagerController {
         }
     }
 
-    @PutMapping("/update/{name}/{lastname}/{fk_branch_id}/{email}/{active}/{password}")
+    @PutMapping("/update/{id}/{name}/{lastname}/{fk_branch_id}/{email}/{active}/{password}")
     public ResponseEntity updateManager(@PathVariable("id") Long id, @PathVariable("name") String name, @PathVariable("lastname") String lastname, @PathVariable("fk_branch_id") Long fk_branch_id, @PathVariable("email") String email, @PathVariable("active") boolean active, @PathVariable("password") String password) throws ServiceException {
         try {
             return ResponseEntity.ok(managerService.updateManager(id, fk_branch_id, password, email, name, lastname, active));
@@ -45,8 +45,8 @@ public class ManagerController {
         }
     }
 
-    @PutMapping("/delete/{id}")
-    public ResponseEntity deleteUser(@PathVariable("id") Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteMenager(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(managerService.deleteManager(id));
         } catch (ServiceException e) {
@@ -55,7 +55,7 @@ public class ManagerController {
     }
 
     @PostMapping("/save/{name}/{lastname}/{email}/{password}/{fk_branch_id}/{active}")
-    public ResponseEntity saveBranch(@PathVariable("name") String name, @PathVariable("lastname") String lastname, @PathVariable("email") String email, @PathVariable("password") String password, @PathVariable("fk_branch_id") Long fk_branch_id, @PathVariable("active") boolean active) {
+    public ResponseEntity saveManager(@PathVariable("name") String name, @PathVariable("lastname") String lastname, @PathVariable("email") String email, @PathVariable("password") String password, @PathVariable("fk_branch_id") Long fk_branch_id, @PathVariable("active") boolean active) {
         Manager m = new Manager(name,lastname,email,password,fk_branch_id,active);
         try {
             return ResponseEntity.ok(this.managerService.saveManager(m));
