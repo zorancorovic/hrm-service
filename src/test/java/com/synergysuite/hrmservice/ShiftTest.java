@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.NoResultException;
-import javax.xml.ws.Service;
 import java.sql.Time;
 
 @RunWith(SpringRunner.class)

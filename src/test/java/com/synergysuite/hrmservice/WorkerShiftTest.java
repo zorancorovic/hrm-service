@@ -32,13 +32,119 @@ public class WorkerShiftTest {
         assertThat(allWorkerShifts, is(not(empty())));
     }
 
+    @Test
+    public void shouldListWorkerShiftById() throws ServiceException {
+        Worker_shift ws = this.service.getWorkerShiftById(10002L);
+    }
 
-//    @Test
-//    public void shouldAddWorkerShiftRest() throws ServiceException {
-//
-//        Worker_shift ws = new Worker_shift(null, 1, "test2", "test2", "test@test.com", Boolean.TRUE);
-//        Worker_shift worker_shift = this.service.saveWorkerShiftRest(ws);
-//    }
+    @Test(expected = ServiceException.class)
+    public void shouldNotListWorkerShiftById() throws ServiceException {
+        Worker_shift ws = this.service.getWorkerShiftById(null);
+    }
+
+    @Test
+    public void shouldAddWorkerShiftRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        //needs to be edited for the main base- main base is using TIMESTAMP() h2 base is not supporting TIMESTAMP() so instead we are using LacalDate / Date
+        Worker_shift worker_shift = this.service.saveWorkerShiftRest(new Worker_shift(null, date, date.plusDays(2), 10000L, 111L, date, 10000000001L));
+    }
+
+    ////////
+    @Test(expected = ServiceException.class)
+    public void shouldNotAddWorkerShiftIdNotNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        //needs to be edited for the main base- main base is using TIMESTAMP() h2 base is not supporting TIMESTAMP() so instead we are using LacalDate / Date
+        Worker_shift worker_shift = this.service.saveWorkerShiftRest(new Worker_shift(1L, date, date.plusDays(2), 10000L, 111L, date, 10000000001L));
+    }
+
+    @Test(expected = ServiceException.class)
+    public void shouldNotAddWorkerShiftObjectNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        //needs to be edited for the main base- main base is using TIMESTAMP() h2 base is not supporting TIMESTAMP() so instead we are using LacalDate / Date
+        Worker_shift worker_shift = this.service.saveWorkerShiftRest(null);
+    }
+
+    @Test(expected = ServiceException.class)
+    public void shouldNotAddWorkerShiftClockInNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        //needs to be edited for the main base- main base is using TIMESTAMP() h2 base is not supporting TIMESTAMP() so instead we are using LacalDate / Date
+        Worker_shift worker_shift = this.service.saveWorkerShiftRest(new Worker_shift(null, null, date.plusDays(2), 10000L, 111L, date, 10000000001L));
+    }
+
+    @Test(expected = ServiceException.class)
+    public void shouldNotAddWorkerShiftWorkerIdNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        //needs to be edited for the main base- main base is using TIMESTAMP() h2 base is not supporting TIMESTAMP() so instead we are using LacalDate / Date
+        Worker_shift worker_shift = this.service.saveWorkerShiftRest(new Worker_shift(null, date, date.plusDays(2), null, 111L, date, 10000000001L));
+    }
+
+    @Test(expected = ServiceException.class)
+    public void shouldNotAddWorkerShiftShiftIdNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        //needs to be edited for the main base- main base is using TIMESTAMP() h2 base is not supporting TIMESTAMP() so instead we are using LacalDate / Date
+        Worker_shift worker_shift = this.service.saveWorkerShiftRest(new Worker_shift(null, date, date.plusDays(2), 10000L, null, date, 10000000001L));
+    }
+
+    @Test(expected = ServiceException.class)
+    public void shouldNotAddWorkerShiftDateNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        //needs to be edited for the main base- main base is using TIMESTAMP() h2 base is not supporting TIMESTAMP() so instead we are using LacalDate / Date
+        Worker_shift worker_shift = this.service.saveWorkerShiftRest(new Worker_shift(null, date, date.plusDays(2), 10000L, 111L, null, 10000000001L));
+    }
+
+    @Test(expected = ServiceException.class)
+    public void shouldNotAddWorkerShiftBranchIdNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        //needs to be edited for the main base- main base is using TIMESTAMP() h2 base is not supporting TIMESTAMP() so instead we are using LacalDate / Date
+        Worker_shift worker_shift = this.service.saveWorkerShiftRest(new Worker_shift(null, date, date.plusDays(2), 10000L, 111L, date, null));
+    }
+
+
+    @Test
+    public void shouldUpdateWorkerShiftRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        Worker_shift worker_shift = this.service.updateWorkerShiftRest(10002L, date.plusDays(1), date.plusDays(1), 10000L, 111L, 10000000002L, date);
+    }
+
+
+    //////
+    @Test(expected = ServiceException.class)
+    public void shouldNotUpdateWorkerShiftIdNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        Worker_shift worker_shift = this.service.updateWorkerShiftRest(null, date.plusDays(1), date.plusDays(1), 10000L, 111L, 10000000002L, date);
+    }
+    @Test(expected = ServiceException.class)
+    public void shouldNotUpdateWorkerShiftClockInNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        Worker_shift worker_shift = this.service.updateWorkerShiftRest(10002L, null, date.plusDays(1), 10000L, 111L, 10000000002L, date);
+    }
+    @Test(expected = ServiceException.class)
+    public void shouldNotUpdateWorkerShiftWorkerIdNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        Worker_shift worker_shift = this.service.updateWorkerShiftRest(10002L, date.plusDays(1), date.plusDays(1), null, 111L, 10000000002L, date);
+    }
+    @Test(expected = ServiceException.class)
+    public void shouldNotUpdateWorkerShiftShiftIdNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        Worker_shift worker_shift = this.service.updateWorkerShiftRest(10002L, date.plusDays(1), date.plusDays(1), 10000L, null, 10000000002L, date);
+    }
+    @Test(expected = ServiceException.class)
+    public void shouldNotUpdateWorkerShifBranchIdNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        Worker_shift worker_shift = this.service.updateWorkerShiftRest(10002L, date.plusDays(1), date.plusDays(1), 10000L, 111L, null, date);
+    }
+    @Test(expected = ServiceException.class)
+    public void shouldNotUpdateWorkerShiftDateNullRest() throws ServiceException {
+        LocalDate date = LocalDate.now();
+        Worker_shift worker_shift = this.service.updateWorkerShiftRest(10002L, date.plusDays(1), date.plusDays(1), 10000L, 111L, 10000000002L, null);
+    }
+
+
+
+
+
+
+
 
 
 }

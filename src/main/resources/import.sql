@@ -17,6 +17,7 @@ INSERT INTO `shifts` (`id`, `start`, `end`) VALUES (1000000000003, '00:10:00', '
 INSERT INTO `admin` (`id`, `email`, `password`) VALUES (1000, 'test', 'test123');
 INSERT INTO `admin` (`id`, `email`, `password`) VALUES (1001, 'test1', 'test124');
 INSERT INTO `admin` (`id`, `email`, `password`) VALUES (1002, 'test2', 'test125');
+-- worker_shift must be edited for the main database witch accepts TIMESTAMP (h2 is not accepting it so we needed to use usual date without time(HMS))
 INSERT INTO `worker_shift` (`id`, `clock_in`, `clock_out`, `worker_id`, `shift_id`,`branch_id`, `date`) VALUES (10000, '2017-11-10', '2017-11-10', 10, 5, 10000000001, '2019-11-10');
 INSERT INTO `worker_shift` (`id`, `clock_in`, `clock_out`, `worker_id`, `shift_id`,`branch_id`, `date`) VALUES (10001, '2017-11-12', '2017-11-12', 11, 5, 10000000002, '2019-11-12');
 INSERT INTO `worker_shift` (`id`, `clock_in`, `clock_out`, `worker_id`, `shift_id`,`branch_id`, `date`) VALUES (10002, '2017-11-14', '2017-11-14', 15, 5, 10000000001, '2019-11-14');

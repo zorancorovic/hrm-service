@@ -42,7 +42,7 @@ public class WorkerShiftService {
     public List<Worker_shift> getWorkerShiftsByDate(LocalDate date) throws ServiceException {
         if (date == null)
             throw new ServiceException("Date is not valid");
-        return this.entityManager.createNamedQuery(Worker_shift.GET_BY_DATE, Worker_shift.class).setParameter(1, date.toString()).getResultList();
+        return this.entityManager.createNamedQuery(Worker_shift.GET_BY_DATE, Worker_shift.class).setParameter(1, date).getResultList();
     }
 
     @Transactional
@@ -52,9 +52,8 @@ public class WorkerShiftService {
             this.entityManager.persist(ws);
             return ws;
         }
-        throw new ServiceException("Workers id exists already");
+        throw new ServiceException("Workers id exists already or isn't valid");
     }
-
 
     @Transactional
     public Worker_shift updateWorkerShiftRest(Long id, LocalDate clock_in, LocalDate clock_out, Long worker_id, Long shift_id, Long branch_id, LocalDate date) throws ServiceException {

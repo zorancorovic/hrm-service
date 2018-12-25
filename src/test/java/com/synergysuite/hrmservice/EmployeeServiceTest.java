@@ -52,6 +52,10 @@ public class EmployeeServiceTest {
         this.service.saveEmployeeRest(new Employee(null, null, "test", "test", "email", Boolean.TRUE));
     }
     @Test(expected = ServiceException.class)
+    public void shouldNotAddEmployeeObjectNull() throws ServiceException {
+        this.service.saveEmployeeRest(null);
+    }
+    @Test(expected = ServiceException.class)
     public void shouldNotAddEmployeeIfNullFirstName() throws ServiceException {
         this.service.saveEmployeeRest(new Employee(null, 1, null, "test", "email", Boolean.TRUE));
     }
